@@ -30,9 +30,16 @@ close all
 % reservoir.max_release = xlsread(file_data, 'Reservoir characteristics', 'B5') * K2; % REPLACE K2 with correct number to convert into m3/day
 % reservoir.installed_capacity = ; % COMPLETE, in MW
 % 
+% % Inflow data
+% read_inflows = ; % COMPLETE with correct xlsread call 
+% flows.inflows = read_inflows(:, X);  % REPLACE X with correct column number 
+% flows.inflows = flows.inflows * K; % REPLACE with correct value of K to convert into m3 / day
+% month_index = read_inflows(:, Y); % REPLACE Y with correct column number
+% T = size(month_index, 1); % number of time steps in simulation
+% 
 % % Demand data
-% demands = xlsread(file_data, 'Demands', 'B2:E13'); % COMPLETE with correct xlsread call 
-% demands = demands * 0.3048^3 * 86400; % REPLACE with correct value of K3 to convert into m3 / day
+% demands = xlsread(file_data, ); % COMPLETE with correct xlsread call 
+% demands = demands * K3; % REPLACE with correct value of K3 to convert into m3 / day
 % flows.downstream_demand = zeros(T,1);
 % flows.local_demand = zeros(T,3);
 % % For each day, add demand depending on what month it is
@@ -45,13 +52,6 @@ close all
 %             demands(i, j) * this_month_days;
 %     end
 % end
-% 
-% % Inflow data
-% read_inflows = ; % COMPLETE with correct xlsread call 
-% flows.inflows = read_inflows(:, X);  % REPLACE X with correct column number 
-% flows.inflows = flows.inflows * K; % REPLACE with correct value of K to convert into m3 / day
-% flows.month_index = read_inflows(:, Y); % REPLACE Y with correct column number
-% T = size(flows.month_index, 1); % number of time steps in simulation
 % 
 % % Call water balance routine
 % flows = water_balance_basic(reservoir, flows);
@@ -76,7 +76,7 @@ close all
 % xlabel('Time (days)')
 % ylabel('Outflows (m3/s)')
 % set(gca, 'Xlim', [1 T])
-% 
+
 % %% Part 2: refinements, Q1 
 % 
 % % Getting head and lake area characteristics

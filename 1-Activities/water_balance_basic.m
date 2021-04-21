@@ -44,7 +44,7 @@ for t =1:T
     wa = ;  % UPDATE water availability
     
     % Determine storage
-    if wa < reservoir.max_storage % reservoir can store all water available
+    if wa < active_storage % reservoir can store all water available
         s(t+1) = ; % TO COMPLETE
     else  % reservoir cannot, it is full 
         s(t+1) = ; % TO COMPLETE
