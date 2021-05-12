@@ -31,12 +31,12 @@ res_init = reservoir;
 flows_init = flows;
 
 % Initialise outputs
-hp_annual = zeros(5,4);
-reliability = zeros(5,4,6);
-resilience = zeros(5,4,6);
-vulnerability = zeros(5,4,6);
-failure_rate = zeros(5,4,6); % annual failure rate not total count
-volumetric_reliability = zeros(5,4,4);
+hp_annual = zeros(7,4);
+reliability = zeros(7,4,6);
+resilience = zeros(7,4,6);
+vulnerability = zeros(7,4,6);
+failure_rate = zeros(7,4,6); % annual failure rate not total count
+volumetric_reliability = zeros(7,4,4);
 
 
 % Loop on flows
@@ -55,7 +55,8 @@ for i = 1:7
         % Scenarios where Peach Bottom intake is lowered to the level of
         % Baltimore's
         if j == 2 || j == 4
-            reservoir.demand_intake_level(3) = 91.5*0.3048;
+            reservoir.demand_intake_level(3) = ...
+                reservoir.demand_intake_level(2);
         end
         
         % Scenarios where suppply to Baltimore is cut when reservoir is not
@@ -65,7 +66,7 @@ for i = 1:7
             reservoir.demand_intake_level(2) = reservoir.max_head;
         end
         
-        % Call water balance routine for synthetic flows 
+        % Call water balance routine for simulation 
         flows = water_balance_sop(reservoir, flows);
         
         % Evaluating performance

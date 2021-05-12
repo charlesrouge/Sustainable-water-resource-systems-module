@@ -26,11 +26,14 @@ switch measure
             varbis(:,j) = (max(var(:,j,i)) - squeeze(var(:,j,i)))/abs(max(var(:,j,i)));
         end
         bar(0:3, varbis')
-        xlabel('Levers')
-        ylabel(strcat('Regret measure 1: ', var_name))
-        title(objective_list(i))
+        xlabel('Levers', 'Fontsize', 14)
+        ylabel(strcat('Regret measure 1: ', var_name), 'Fontsize', 14)
+        title(objective_list(i), 'Fontsize', 14)
         legend('Baseline','Flow -5%','Flow -10%','Flow -15%',...
-            'Flow -20%','Flow -25%','Flow -30%','Location','northwest')
+            'Flow -20%','Flow -25%','Flow -30%','Location','northwest'...
+            , 'Fontsize', 14)
+        ax = gca;
+        ax.FontSize = 12;
     end
 
     case 2
@@ -42,10 +45,13 @@ switch measure
             varbis(j,:) = (max(var(j,:,i)) - squeeze(var(j,:,i)))/abs(max(var(j,:,i)));
         end
         bar(0:5:30,varbis)
-        xlabel('% streamflow reduction')
-        ylabel(strcat('Regret measure 2: ', var_name))
-        title(objective_list(i))
-        legend('No action','PB intake','Desal','Both','Location','northwest')
+        xlabel('% streamflow reduction', 'Fontsize', 14)
+        ylabel(strcat('Regret measure 2: ', var_name), 'Fontsize', 14)
+        title(objective_list(i), 'Fontsize', 14)
+        legend('No action','PB intake','Desal','Both','Location',...
+            'northwest', 'Fontsize', 14)
+        ax = gca;
+        ax.FontSize = 12;
     end
 
     case 3
@@ -53,10 +59,13 @@ switch measure
     for i = 1:n
         figure
         bar(0:5:30,(var(1,1,i)-squeeze(var(:,:,i)))/abs(var(1,1,i)))
-            xlabel('% streamflow reduction')
-        ylabel(strcat('Regret measure 3: ', var_name))
-        title(objective_list(i))
-        legend('No action','PB intake','Desal','Both','Location','northwest')
+        xlabel('% streamflow reduction', 'Fontsize', 14)
+        ylabel(strcat('Regret measure 3: ', var_name), 'Fontsize', 14)
+        title(objective_list(i), 'Fontsize', 14)
+        legend('No action','PB intake','Desal','Both','Location',...
+            'northwest', 'Fontsize', 14)
+        ax = gca;
+        ax.FontSize = 12;
     end
     
 end

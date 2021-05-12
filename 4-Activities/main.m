@@ -31,16 +31,16 @@ res_init = reservoir;
 flows_init = flows;
 
 % Initialise outputs
-hp_annual = zeros(5,4);
-reliability = zeros(5,4,6);
-resilience = zeros(5,4,6);
-vulnerability = zeros(5,4,6);
-failure_rate = zeros(5,4,6); % annual failure rate not total count
+hp_annual = zeros(7,4);
+reliability = zeros(7,4,6);
+resilience = zeros(7,4,6);
+vulnerability = zeros(7,4,6);
+failure_rate = zeros(7,4,6); % annual failure rate not total count
 
 % Loop on flows
 for i = 1:7
     
-    % Re-initialise "flows" and get right value of synthetic inflows
+    % Re-initialise "flows" and get right value of inflows
     
     % Loop on levers
     for j = 1:4
@@ -54,7 +54,7 @@ for i = 1:7
         % full. This is equivalent to having the intake at full reservoir
         % level
         
-        % Call water balance routine for synthetic flows 
+        % Call water balance routine for simulation 
         
         % Evaluating performance
         
