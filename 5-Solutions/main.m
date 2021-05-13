@@ -21,7 +21,7 @@ file_data = 'Conowingo data.xlsx';
 [reservoir, flows] = preparation(file_data);
 
 % New intake at Peach Bottom
-reservoir.demand_intake_level(3) = reservoir.demand_intake_level(1);
+reservoir.demand_intake_level(3) = reservoir.demand_intake_level(2);
 
 % Save the global variables before manipulating them 
 save('reservoir.mat','reservoir')
