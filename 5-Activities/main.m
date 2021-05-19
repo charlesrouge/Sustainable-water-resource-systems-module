@@ -41,8 +41,8 @@ nb_gen = 50;
 size_pop = 40;
 M=2;
 V=2;
-min_range = [ 0 91.5*0.3048 ];
-max_range = [ 1 108.5*0.3048 ];
+min_range = [ 0 reservoir.demand_intake_level(2) ];
+max_range = [ 1 reservoir.max_head ];
 
 % Main call
 % The algorithm returns the initial (ch0) and the final population (chF)
@@ -137,6 +137,9 @@ for i = 1:N
     
     % Simulation
     [objs_sen, flows] = sim_conowingo(reservoir, flows, reduction, level_selected);
+    
+    % Actual water supply to Baltimore
+    flows.withdrawals(:,2) = ; % COMPLETE
     
     % Evaluating performance
     indicators = performance(flows, reservoir);

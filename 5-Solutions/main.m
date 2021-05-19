@@ -41,18 +41,18 @@ nb_gen = 100;
 size_pop = 40;
 M=3;
 V=2;
-min_range = [ 0 91.5*0.3048 ];
-max_range = [ 1 108.5*0.3048 ];
+min_range = [ 0 reservoir.demand_intake_level(2) ];
+max_range = [ 1 reservoir.max_head ];
 
-% % Main call
-% % The algorithm returns the initial (ch0) and the final population (chF)
-% [ch0, chF, f_inter] = nsga_2(size_pop,nb_gen,M,V,min_range,max_range);
-% 
-% % Save results
-% decisions = chF(:, 1:V);
-% pareto_front = chF(:, V+1:V+M);
-% save('decisions.mat','decisions')
-% save('pareto_front.mat','pareto_front')
+% Main call
+% The algorithm returns the initial (ch0) and the final population (chF)
+[ch0, chF, f_inter] = nsga_2(size_pop,nb_gen,M,V,min_range,max_range);
+
+% Save results
+decisions = chF(:, 1:V);
+pareto_front = chF(:, V+1:V+M);
+save('decisions.mat','decisions')
+save('pareto_front.mat','pareto_front')
 
 %% Representing solutions
 
@@ -141,6 +141,10 @@ for i = 1:N
     % Simulation
     [objs_sen, flows] = sim_conowingo(reservoir, flows, reduction, level_selected);
     
+    % Actual water supply to Baltimore
+    flows.withdrawals(:,2) = flows.withdrawals(:,2) + ...
+        flows.local_demand(:,2) * reduction;
+    
     % Evaluating performance
     indicators = performance(flows, reservoir);
 
@@ -155,6 +159,7 @@ end
 % Choose variable (e.g. Baltimore or Peach Bottom)
 z = reliability(:,2); % 2 for Chester
 
+% Define success vs. failure
 threshold = 0.95;
 
 input_names = {'Inflows (Dec-May)','Inflows (Jun-Nov)','Domestic demand','Ecological flows'};
