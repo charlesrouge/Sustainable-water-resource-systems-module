@@ -5,3 +5,5 @@ This folder contains the following files:
 => Matlab file “reservoir_shape.m” allows us to visualise the relationship between head (water depth), storage and surface lake area.
 
 => Matlab file “water_balance_basic” contains an uncomplete water balance function for the reservoir.
+
+=> Matlab file “water_balance_final” contains the enhanced version of the reservoir water balance.

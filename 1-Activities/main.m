@@ -9,7 +9,7 @@
 clear all
 close all
 
-%% Part 0 
+%% Part 1 
 
 % reservoir_shape
 
@@ -76,8 +76,8 @@ close all
 % xlabel('Time (days)')
 % ylabel('Outflows (m3/s)')
 % set(gca, 'Xlim', [1 T])
-
-% %% Part 2: refinements, Q1 
+% 
+% %% Part 2+: water balance refinements 
 % 
 % % Getting head and lake area characteristics
 % % Read key data
@@ -87,16 +87,9 @@ close all
 % reservoir.max_surface = key_data(1, 2) * 1E4; % in m2
 % % Empty reservoir data
 % reservoir.empty_head = key_data(3, 1); % m
-% % Intakes 
-% reservoir.demand_intake_level = 100*0.3048; % conversion ft to m
 % 
-% % Water balance must mirror this
-% flows = water_balance_inter(reservoir, flows);
-% 
-% %% Part 2: refinements, Q2
-% 
-% % Now we have different intake heights
-% reservoir.demand_intake_level = ; % conversion ft to m
+% % Intakes with different heights for the different demands
+% reservoir.demand_intake_level = [100.5 91.5 103.5]*0.3048; % conversion ft to m
 % 
 % % Water balance must mirror this
 % flows = water_balance_final(reservoir, flows);
@@ -115,23 +108,17 @@ close all
 % % Average annual production
 % hp_annual = ; % WRITE ANNUAL AVERAGE
 % 
+% % Completing previous storage figure
+% figure(1)
+% plot(0:T, flows.storage_final / 1E6, 'k')
+% legend('Min storage', 'Max storage', 'Basic', 'Final', 'Location', 'Southeast')
+% 
 % % Hydropower figure
 % figure 
 % cdfplot(hp)
 % title('Hydropower')
 % xlabel('Daily production (MWh)')
 % ylabel('Non-exceendence probability')
-% 
-% % Storage figure (CDF)
-% figure
-% hold on
-% cdfplot(flows.storage_basic/1E6)
-% cdfplot(flows.storage_inter/1E6)
-% cdfplot(flows.storage_final/1E6)
-% legend('Basic', 'Inter', 'Final', 'Location', 'Northwest')
-% xlabel('Storage (hm3)')
-% ylabel('Non-exceendence probability')
-% set(gca, 'Ylim', [0 0.1])
 % 
 % % Withdrawals figure
 % figure

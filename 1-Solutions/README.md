@@ -6,6 +6,4 @@ This folder contains the following files:
 
 => Matlab file “water_balance_basic” contains the first version of the reservoir water balance.
 
-=> Matlab file “water_balance_inter” contains the second version of the reservoir water balance.
-
-=> Matlab file “water_balance_final” contains the third and final version of the reservoir water balance.
+=> Matlab file “water_balance_final” contains the enhanced version of the reservoir water balance.

@@ -9,11 +9,11 @@
 clear all
 close all
 
-%% Part 0 
+%% Part 1 
 
 % reservoir_shape
 
-%% Part 1: basic water balance
+%% Part 2: basic water balance
 
 % Define global variables
 global reservoir;
@@ -59,9 +59,9 @@ flows = water_balance_basic(reservoir, flows);
 % Plot results
 
 % % Insert figure of storage through time (whichever unit you prefer)
-figure
+figure(1)
 hold on
-plot(0:T, reservoir.min_storage*ones(T+1,1) / 1E6, '--r')
+plot(0:T, reservoir.min_storage*ones(T+1,1) / 1E6, ':r')
 plot(0:T, reservoir.max_storage*ones(T+1,1) / 1E6, '--r')
 plot(0:T, flows.storage_basic / 1E6, 'b')
 title('Storage')
@@ -78,7 +78,7 @@ ylabel('Outflows (m3/s)')
 set(gca, 'Xlim', [1 T])
 
 
-%% Part 2: refinements, Q1 
+%% Part 2+: water balance refinements 
 
 % Getting head and lake area characteristics
 % Read key data
@@ -88,15 +88,8 @@ reservoir.max_head = key_data(1, 1); % m
 reservoir.max_surface = key_data(1, 2) * 1E4; % in m2
 % Empty reservoir data
 reservoir.empty_head = key_data(3, 1); % m
-% Intakes 
-reservoir.demand_intake_level = 100*0.3048; % conversion ft to m
 
-% Water balance must mirror this
-flows = water_balance_inter(reservoir, flows);
-
-%% Part 2: refinements, Q2
-
-% Now we have different intake heights
+% Intakes with different heights for the different demands
 reservoir.demand_intake_level = [100.5 91.5 103.5]*0.3048; % conversion ft to m
 
 % Water balance must mirror this
@@ -120,6 +113,11 @@ hp = 1000*9.81*reservoir.hydropower_efficiency*flows.head.*...
 % Average annual production
 hp_annual = sum(hp) / 70; % WRITE ANNUAL AVERAGE
 
+% Completing previous storage figure
+figure(1)
+plot(0:T, flows.storage_final / 1E6, 'k')
+legend('Min storage', 'Max storage', 'Basic', 'Final', 'Location', 'Southeast')
+
 % Hydropower figure
 figure 
 cdfplot(hp)
@@ -127,26 +125,24 @@ title('Hydropower')
 xlabel('Daily production (MWh)')
 ylabel('Non-exceendence probability')
 
-% Storage figure (CDF)
-figure
-hold on
-cdfplot(flows.storage_basic/1E6)
-cdfplot(flows.storage_inter/1E6)
-cdfplot(flows.storage_final/1E6)
-legend('Basic', 'Inter', 'Final', 'Location', 'Northwest')
-xlabel('Storage (hm3)')
-ylabel('Non-exceendence probability')
-set(gca, 'Ylim', [0 0.1])
-
 % Withdrawals figure
 figure
 hold on
 cdfplot(flows.withdrawals_basic)
-cdfplot(flows.withdrawals_inter)
 cdfplot(sum(flows.withdrawals_final,2))
-legend('Basic', 'Inter', 'Final', 'Location', 'Northwest')
+legend('Basic', 'Final', 'Location', 'Northwest')
 xlabel('Daily withdrawals (m3)')
 ylabel('Non-exceendence probability')
+
+% Storage figure (CDF)
+figure
+hold on
+cdfplot(flows.storage_basic/1E6)
+cdfplot(flows.storage_final/1E6)
+legend('Basic', 'Final', 'Location', 'Northwest')
+xlabel('Storage (hm3)')
+ylabel('Non-exceendence probability')
+set(gca, 'Ylim', [0 0.1])
 
 % Withdrawals from final water balance
 figure
