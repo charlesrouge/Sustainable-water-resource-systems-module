@@ -10,6 +10,8 @@ It gathers the parts of "main.m" that did that in tutorial 1 and does these oper
 => Matlab file "water_balance_sop.m" is the final version of the water balance from tutorial 1, "water_balance_final.m". 
 Its name comes from the fact that we use the Standard Operating Policy (SOP) to allocate water and determine the water balance.
 
+=> Matlab file "water_balance_keep.m" is the same as "water_balance_sop.m" but with different order of priority for water users.
+
 => Matlab file "rrv_indicators.m" computes the indicators R (reliability), R (resilience) and V (vulnerability). 
 It expresses V as the average of the (maximal) magnitude of failure during failure events, but has two versions: 1) V as the average distance to the threshold, 
 and 2) V as the average percentage violation.

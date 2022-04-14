@@ -32,6 +32,11 @@ flows = water_balance_sop(reservoir, flows);
 % New structure
 indicators = struct();
 
+% Hydropower: average annual production (MWh)
+hp = 1000*9.81*reservoir.hydropower_efficiency*flows.hydraulic_head.*...
+    (flows.release/86400).*24/1E6;
+indicators.annual_hydropower = sum(hp) / 70;
+
 % RRV indicators for demands
 indicators.chester = ...
     rrv_indicators(flows.withdrawals(:,1),flows.local_demand(:,1),1);

@@ -15,7 +15,8 @@ global reservoir;
 global flows;
 
 % Get inputs to water balance
-file_data = 'Conowingo data.xlsx';
+addpath('./../')
+file_data = '../Conowingo data.xlsx';
 
 % Call the data preparation routine
 [reservoir, flows] = preparation(file_data);
@@ -31,6 +32,11 @@ flows = water_balance_sop(reservoir, flows);
 
 % New structure
 indicators = struct();
+
+% Hydropower: average annual production (MWh)
+hp = 1000*9.81*reservoir.hydropower_efficiency*flows.hydraulic_head.*...
+    (flows.release/86400).*24/1E6;
+indicators.annual_hydropower = sum(hp) / 70;
 
 % RRV indicators for demands
 indicators.chester = ...
@@ -49,7 +55,7 @@ indicators.baltimore.volumetric_reliability = ...
     sum(flows.withdrawals(:,2)) / sum(flows.local_demand(:,2)); % COMPLETE ON THIS LINE
 indicators.peach_bottom.volumetric_reliability = ...
     sum(flows.withdrawals(:,3)) / sum(flows.local_demand(:,3)); % COMPLETE ON THIS LINE
-indicators.volumetric_reliability(1) = sum(min(flows.release, ...
+indicators.ecological.volumetric_reliability = sum(min(flows.release, ...
     flows.downstream_demand)) / sum(flows.downstream_demand); % COMPLETE ON THIS LINE
 
 % RRV indicators for flooding
