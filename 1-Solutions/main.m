@@ -1,5 +1,5 @@
 % This is part of Tutorial 1 for CIV 4782-6782 at the U. of Sheffield
-% by Charles Rougé, Spring 2021
+% by Charles Rougé, Spring 2023
 % 
 % This routine is the main one in tutorial one. 
 %
@@ -9,17 +9,16 @@
 clear all
 close all
 
-%% Part 1 
+%% Part 1: preparation
 
 % reservoir_shape
-
-%% Part 2: basic water balance
 
 % Define global variables
 global reservoir;
 global flows;
 
 % Get inputs to water balance
+addpath('../') % To find the inputs in parent folder
 file_data = 'Conowingo data.xlsx';
 
 % Reservoir characteristics
@@ -52,6 +51,8 @@ for i = 1:12 % loop on months
             demands(i, j) * this_month_days;
     end
 end
+
+%% Part 2: perform basic water balance
 
 % Call water balance routine
 flows = water_balance_basic(reservoir, flows);

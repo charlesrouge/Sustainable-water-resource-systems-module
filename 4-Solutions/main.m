@@ -107,13 +107,13 @@ end
 % Multi-actor analysis (except for flooding)
 
 % Pick indicator of choice (higher values must be better, put a minus if needed, as in "- vulnerability")
-var_name = 'resilience'; %'reliability';
+var_name = 'reliability'; %'resilience'
 var = - failure_rate;
 obj_list = [{'Ecological'}, {'Chester'}, {'Baltimore'}, {'Peach Bottom'}, ...
     {'Flooding'}, {'Recreation'}];
 
 % Comment and uncomment as you see fit!
-
+% 
 % plot_regret(1, var, var_name, obj_list)
 % plot_regret(2, var, var_name, obj_list)
 % plot_regret(3, var, var_name, obj_list)

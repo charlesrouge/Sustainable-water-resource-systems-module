@@ -15,7 +15,8 @@ global reservoir;
 global flows;
 
 % Get inputs to water balance
-file_data = 'Conowingo data.xlsx';
+addpath('../')
+file_data = '../Conowingo data.xlsx';
 
 % Call the data preparation routine
 [reservoir, flows] = preparation(file_data);
