@@ -1,5 +1,5 @@
 % This is part of Tutorial 2 for CIV 4782-6782 at the U. of Sheffield
-% by Charles Rougé, Spring 2021
+% by Charles Rougé, last modified 2023
 % 
 % This routine computes R-R-V indicators as laid out in Hashimoto et al.
 % (1982)
@@ -39,8 +39,21 @@ magnitude = []; % for each event, maximal failure magnitude
 magnitude_f = []; % same as above, but as a fraction
 while t <= T 
     
-    % COMPLETE while loop to find nb of events and max_magnitude for 
-    % each of them (several lines)
+    % While loop to find nb of events and max_magnitude for each of them 
+    if a(t) < b(t)  % new event!
+        event_count = event_count + 1;
+        magnitude(event_count) = b(t) - a(t);  % for vulnerability
+        magnitude_f(event_count) = (b(t) - a(t)) / abs(b(t));
+        while a(t) < b(t)  % While event lasts
+            t = t + 1;
+            magnitude(event_count) = max(magnitude(event_count), b(t) - a(t));
+            magnitude_f(event_count) = max(magnitude_f(event_count), ...
+                (b(t) - a(t)) / abs(b(t)));
+            if t == T
+                break
+            end
+        end
+    end
     
     % Stopping condition (awlways crucial in while loops)
     t = t+1;
@@ -51,6 +64,8 @@ res = ; % TO COMPLETE
 
 % Vulnerability
 vul = ; % TO COMPLETE
+% Vulnerability as a percentage
+vul_p = ; % TO COMPLETE
 
 % Populate structure
 indicators.reliability = rel;
